@@ -1,0 +1,13 @@
+{
+  "name": "potatosalad775-discord-bot",
+  "version": "0.0.2",
+  "description": "some weird discord bot",
+  "main": "index.js",
+  "author": {
+    "name": "potatosalad775"
+  },
+  "dependencies": {
+    "discord.js": "^12.0.1",
+    "dotenv": "^8.2.0"
+  }
+}
