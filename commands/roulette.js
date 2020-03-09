@@ -103,30 +103,31 @@ module.exports = {
 							message.channel.send('룰렛 파일 읽기 실패!');
 						}
 						else {
-							console.log('roulette json read and output done');
 							rouletteObj = JSON.parse(data);
 							var rand = Math.floor(Math.random() * 6);
 							for (var i = 0; i < rouletteObj.table.length; i++) {
 								var nameStr = rouletteObj.table[i].name
+
 								message.channel.send('\:gun:')
 								message.channel.send('. . .');
 								setTimeout(function () {
-									if (rand === i) {
-										message.channel.send('\:boom:\:gun:')
-										message.channel.send(nameStr + ', 당신은 총에 맞았습니다!');
-									}
-									else {
-										message.channel.send('\:gun:')
-										message.channel.send(nameStr + ', 다행히도 총이 격발되지 않았네요...');
-									}
 								}, 1500);
+
+								if (rand === i) {
+									message.channel.send('\:boom:\:gun:')
+									message.channel.send(nameStr + ', 당신은 총에 맞았습니다!');
+								}
+								else {
+									message.channel.send('\:gun:')
+									message.channel.send(nameStr + ', 다행히도 총이 격발되지 않았네요...');
+								}
 							}
 							rouletteObj.table.splice(0);
 							var json = JSON.stringify(rouletteObj);
 							fs.writeFile('roulette.json', json, 'utf8', function (err) {
 								if (err) {
-									console.log('roulette json write error');
-									message.channel.send('룰렛 파일 쓰기 실패!');
+									console.log('there was an error while writing and wiping roulette.json');
+									message.channel.send('룰렛 파일 쓰기 및 지우기 실패!');
 								} else {
 									console.log('roulette file wipe successful');
 								}
