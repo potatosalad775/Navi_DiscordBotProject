@@ -111,7 +111,7 @@ module.exports = {
 								message.channel.send('\:gun:')
 								message.channel.send('. . .');
 								setTimeout(function () {
-								}, 1500);
+								}, 500);
 
 								if (rand === i) {
 									message.channel.send('\:boom:\:gun:')
