@@ -10,7 +10,7 @@ module.exports = {
                 `${prefix}help [명령어]로 더 자세한 정보를 알 수 있습니다.\n\n` +
                 `${prefix}help : 지금 보고 계십니다.\n` +
                 `${prefix}ping : 퐁!과 함께 Discord Websocket 연결 지연시간을 알려줍니다.\n` +
-                `${prefix}kick : 태그된 사람을 kick합니다. 유저 태그 필수\n` +
+                `${prefix}kick : 태그된 사람이나 사물을 kick합니다.\n` +
                 `${prefix}food : 음식 추천, 사용자의 음식 리스트 업데이트 지원.\n` +
                 `${prefix}roulette : 러시안 룰렛을 플레이합니다. 추가 명령어 필수`
             );
@@ -33,6 +33,7 @@ module.exports = {
                     break;
                 case 'kick':
                     message.channel.send(
+                        `${prefix}kick [문자열] : 입력된 문자열(사물)을 kick합니다.\n` +
                         `${prefix}kick [사용자 태그] : 태그된 사람을 kick합니다.\n` +
                         '이 명렁어를 사용해도 실제로 디스코드 채널에서 유저를 kick하지는 않습니다.'
                     );
