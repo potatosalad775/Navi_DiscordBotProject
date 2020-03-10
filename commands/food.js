@@ -32,58 +32,68 @@ module.exports = {
 			switch (commandName) {
 				case 'add':
 					// !food add 음식이름
-					fs.readFile('food.json', 'utf8', function readFileCallback(err, data) {
-						if (err) {
-							console.log('food json read error');
-							message.channel.send('음식 리스트 읽기 실패!');
-						} else {
-							foodObj = JSON.parse(data);
-							foodObj.table.push({ name: inputStr });
-							var json = JSON.stringify(foodObj);
-							fs.writeFile('food.json', json, 'utf8', function (err) {
-								if (err) {
-									console.log('food json write error');
-									message.channel.send('음식 리스트 쓰기 실패!');
-								} else {
-									message.channel.send('음식 `' + inputStr + '` 추가 완료!');
-								}
-							});
-						}
-					});
+					if(!args.length) {
+						message.reply('입력된 음식이 없어요!');
+					}
+					else {
+						fs.readFile('food.json', 'utf8', function readFileCallback(err, data) {
+							if (err) {
+								console.log('food json read error');
+								message.channel.send('음식 리스트 읽기 실패!');
+							} else {
+								foodObj = JSON.parse(data);
+								foodObj.table.push({ name: inputStr });
+								var json = JSON.stringify(foodObj);
+								fs.writeFile('food.json', json, 'utf8', function (err) {
+									if (err) {
+										console.log('food json write error');
+										message.channel.send('음식 리스트 쓰기 실패!');
+									} else {
+										message.channel.send('음식 `' + inputStr + '` 추가 완료!');
+									}
+								});
+							}
+						});
+					}
 					break;
 
 				case 'delete':
 					// !food delete 음식이름
-					fs.readFile('food.json', 'utf8', function readFileCallback(err, data) {
-						if (err) {
-							console.log('food json read error');
-							message.channel.send('음식 리스트 읽기 실패!');
-						}
-						else {
-							foodObj = JSON.parse(data);
-							var flag = 0;
-							for (var i = 0; i < foodObj.table.length; i++) {
-								if (foodObj.table[i].name === inputStr) {
-									foodObj.table.splice(i, 1);
-									var json = JSON.stringify(foodObj);
-									fs.writeFile('food.json', json, 'utf8', function (err) {
-										if (err) {
-											console.log('food json write error');
-											message.channel.send('음식 리스트 쓰기 실패!');
-										} else {
-											console.log('food delete successful');
-											message.channel.send('음식 `' + inputStr + '` 삭제 완료!');
-										}
-									});
-									flag = 1;
-									break;
+					if(!args.length) {
+						message.reply('입력된 음식이 없어요!');
+					}
+					else {
+						fs.readFile('food.json', 'utf8', function readFileCallback(err, data) {
+							if (err) {
+								console.log('food json read error');
+								message.channel.send('음식 리스트 읽기 실패!');
+							}
+							else {
+								foodObj = JSON.parse(data);
+								var flag = 0;
+								for (var i = 0; i < foodObj.table.length; i++) {
+									if (foodObj.table[i].name === inputStr) {
+										foodObj.table.splice(i, 1);
+										var json = JSON.stringify(foodObj);
+										fs.writeFile('food.json', json, 'utf8', function (err) {
+											if (err) {
+												console.log('food json write error');
+												message.channel.send('음식 리스트 쓰기 실패!');
+											} else {
+												console.log('food delete successful');
+												message.channel.send('음식 `' + inputStr + '` 삭제 완료!');
+											}
+										});
+										flag = 1;
+										break;
+									}
+								}
+								if (flag === 0) {
+									message.channel.send('제거를 요청하신 음식을 리스트에서 찾지 못했습니다...');
 								}
 							}
-							if (flag === 0) {
-								message.channel.send('제거를 요청하신 음식을 리스트에서 찾지 못했습니다...');
-							}
-						}
-					});
+						});
+					}
 					break;
 
 				case 'showall':
